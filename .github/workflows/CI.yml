@@ -44,13 +44,14 @@ jobs:
       - run: pnpm run build
 
   test:
+    needs: build
     strategy:
       matrix:
         node-version: [20.x]
 
     name: Run all tests
-    runs-on: windows-latest
-    # runs-on: self-hosted
+    # runs-on: windows-latest
+    runs-on: self-hosted
     # defaults:
     #   run:
     #     shell: bash
