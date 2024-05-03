@@ -99,7 +99,7 @@ jobs:
         run: pnpm run test-storybook:ci
 
       - name: Run E2E tests
-        run: npx dlx percy exec -- pnpm run test:e2e
+        run: npx percy exec -- pnpm run test:e2e
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
