@@ -50,6 +50,10 @@ jobs:
 
     name: Run all tests
     runs-on: self-hosted
+    defaults:
+      run:
+        shell: bash
+    
 
     steps:
       - uses: actions/checkout@v3
