@@ -51,7 +51,7 @@ jobs:
 
     name: Run all tests
     # runs-on: windows-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     # defaults:
     #   run:
     #     shell: bash
