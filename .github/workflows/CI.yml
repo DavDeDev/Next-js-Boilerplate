@@ -12,6 +12,7 @@ concurrency:
 
 jobs:
   build:
+    timeout-minutes: 5
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -45,6 +46,7 @@ jobs:
 
   test:
     needs: build
+    timeout-minutes: 5 
     strategy:
       matrix:
         node-version: [22.x]
