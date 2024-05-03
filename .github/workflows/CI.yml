@@ -69,11 +69,13 @@ jobs:
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
 
-      - name: Set SENTRY_AUTH_TOKEN env if secret exists
-        run: |
-          if (-not [String]::IsNullOrEmpty($env:secrets["SENTRY_AUTH_TOKEN"])) {
-            Add-Content -Path $env:GITHUB_ENV -Value "SENTRY_AUTH_TOKEN=$($env:secrets['SENTRY_AUTH_TOKEN'])"
-          }
+      # - name: Set SENTRY_AUTH_TOKEN env if secret exists
+      #   shell: bash
+      #   run: |
+      #     if [[ -n "${{ secrets.SENTRY_AUTH_TOKEN }}" ]]; then
+      #       echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
+      #     fi
+
       - name: Build Next.js for E2E tests
         run: pnpm run build
 
