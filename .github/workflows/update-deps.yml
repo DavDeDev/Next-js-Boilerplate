@@ -20,12 +20,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
+          cache: "bun"
+      - uses: oven-sh/setup-bun@v1
+      - run:  bun install --frozen-lockfile
 
-      - run: npx npm-check-updates -u # Update dependencies
+      - run: bunx npm-check-updates -u # Update dependencies
       - run: rm -Rf node_modules package-lock.json
-      - run: npm install
+      - run: bun install
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
