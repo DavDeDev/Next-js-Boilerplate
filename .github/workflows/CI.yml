@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         with:
           version: 9
       - name: Use Node.js ${{ matrix.node-version }}
@@ -50,16 +50,16 @@ jobs:
 
     name: Run all tests
     runs-on: self-hosted
-    defaults:
-      run:
-        shell: bash
+    # defaults:
+    #   run:
+    #     shell: bash
     
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Retrieve Git history, needed to verify commits
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         with:
           version: 9
       - name: Use Node.js ${{ matrix.node-version }}
@@ -71,10 +71,9 @@ jobs:
 
       - name: Set SENTRY_AUTH_TOKEN env if secret exists
         run: |
-          if [[ -n "${{ secrets.SENTRY_AUTH_TOKEN }}" ]]; then
-            echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
-          fi
-
+          if (-not [String]::IsNullOrEmpty($env:secrets["SENTRY_AUTH_TOKEN"])) {
+            Add-Content -Path $env:GITHUB_ENV -Value "SENTRY_AUTH_TOKEN=$($env:secrets['SENTRY_AUTH_TOKEN'])"
+          }
       - name: Build Next.js for E2E tests
         run: pnpm run build
 
